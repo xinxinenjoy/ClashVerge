@@ -22,7 +22,11 @@ proxy-providers:
     
 proxy-groups:
   - name: ALL
-    输入: select
+    type: select
     use:
       - 合租机场
-      - 亏本机场
+      - 云本机场
+      - 极速机场
+      - 泡泡DOG
+      - CF节点
+
