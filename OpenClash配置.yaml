@@ -1,6 +1,6 @@
 # OpenClash 完整配置
 redir-port: 7892
-tproxy-port: 7893
+tproxy-port: 7895
 
 allow-lan: true
 mode: rule
@@ -29,6 +29,7 @@ dns:
     - "*.tencent.com"
     - "*.msftncsi.com"
     - "www.msftconnecttest.com"
+    - "geosite:cn"
   nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -37,12 +38,15 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
+  proxy-server-nameserver:
+  - 8.8.8.8
+  - 114.114.114.114
 
 # 代理订阅（保留 additional-prefix）
 proxy-providers:
 
   订阅名称1:
-    type: http
+    输入: http
     interval: 3000
     health-check:
       enable: true
@@ -53,7 +57,7 @@ proxy-providers:
       additional-prefix: "前缀1"
 
   订阅名称2:
-    type: http
+    输入: http
     interval: 3000
     health-check:
       enable: true
@@ -64,7 +68,7 @@ proxy-providers:
       additional-prefix: "前缀2"
 
   订阅名称3:
-    type: http
+    输入: http
     interval: 3000
     health-check:
       enable: true
@@ -75,7 +79,7 @@ proxy-providers:
       additional-prefix: "前缀3"
 
   订阅名称4:
-    type: http
+    输入: http
     interval: 3000
     health-check:
       enable: true
@@ -315,7 +319,7 @@ rule-providers:
     url: https://testingcf.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
 
 rules:
-  - GEOIP,lan,直连访问,no-resolve
+  - GEOIP,lan,直连访问
   - GEOSITE,private,直连访问
   - RULE-SET,wanxin-direct,直连访问
   - RULE-SET,wanxin-proxy,手动选择
@@ -332,18 +336,23 @@ rules:
   - GEOSITE,google,谷歌服务
   - RULE-SET,Loyalsoldier-reject,REJECT
   - GEOSITE,category-ads-all,REJECT
-  - GEOIP,telegram,Telegram,no-resolve
-  - GEOIP,google,谷歌服务,no-resolve
-  - GEOIP,twitter,手动选择,no-resolve
-  - GEOIP,netflix,手动选择,no-resolve
-  - GEOIP,facebook,手动选择,no-resolve
+  - IP-CIDR,91.108.0.0/16,Telegram
+  - IP-CIDR,149.154.160.0/20,Telegram
+  - DOMAIN-SUFFIX,t.me,Telegram
+  - DOMAIN-SUFFIX,telegram.org,Telegram
+  - DOMAIN-SUFFIX,telegra.ph,Telegram
+  - GEOIP,telegram,Telegram
+  - GEOIP,google,谷歌服务
+  - GEOIP,twitter,手动选择
+  - GEOIP,netflix,手动选择
+  - GEOIP,facebook,手动选择
   - GEOSITE,cn,直连访问
   - GEOSITE,category-games-cn,直连访问
   - GEOSITE,category-games@cn,直连访问
   - GEOSITE,category-game-platforms-download,直连访问
   - GEOSITE,category-games,Game游戏
   - RULE-SET,Loyalsoldier-direct,直连访问
-  - GEOIP,cn,直连访问,no-resolve
+  - GEOIP,cn,直连访问
   - RULE-SET,Loyalsoldier-proxy,手动选择
   - GEOSITE,category-public-tracker,直连访问
   - GEOSITE,category-pt,直连访问
